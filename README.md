@@ -1,2 +1,2 @@
 # mini_tournament_scoreboard
-Mini Tournament Scoreboard is a RESTful API that tallies and manages the scores and standings of teams within a mini tournament.
+Mini Tournament Scoreboard is a RESTful API that tallies and manages the scores and standings of teams within a mini tournament. It makes it so that the client is able to register a new non-existing team, retrieve or search for a team via their ID, read or view all the records of the teams, update records such as win-loss data, and remove existing teams. These records are stored within Python using dictionary or list so that user authentication and database won’t be necessary for its execution.
