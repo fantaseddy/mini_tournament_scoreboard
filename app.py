@@ -70,5 +70,14 @@ def update_team(team_id):
 
     return jsonify(team), 200
     
+@app.route("/standings/<int:team_id>", methods=["GET"])
+def get_team(team_id):
+    team = find_team(team_id)
+
+    if team is None:
+        return error("Team not found. :<", 404)
+
+    return jsonify(team), 200
+
 if __name__ == "__main__":
     app.run(debug=True)
