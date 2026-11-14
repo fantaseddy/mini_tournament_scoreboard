@@ -36,5 +36,24 @@ def get_standings():
     )
     return jsonify(ordered), 200
 
+#Mi parte
+@app.route("/standings/<int:team_id>", methods=['PUT'])
+def update_team(team_id)
+    if team is None:
+        return error(f"Team not founderror", 404)
+
+    data = request.get_json(silent = True)
+    if data is None:
+        return error("The request body must be JSON")
+
+    for field in ("team", "wins", "losses"):
+        if field not in data:
+            return error(f"Missing field: {data}")
+
+    name = data['team']
+    wins = data['wins']
+    losses = data['losses']
+
+    
 if __name__ == "__main__":
     app.run(debug=True)
