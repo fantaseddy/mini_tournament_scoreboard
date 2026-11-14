@@ -54,6 +54,20 @@ def update_team(team_id)
     wins = data['wins']
     losses = data['losses']
 
+    if not isinstance(name, str) or name.strip() == "":
+        return error("The team must not be empty")
+    
+    if not isinstance(wins, int) or isinstance(win, bool) or wins < 0 :
+        return error("The wins must be a whole number not less than 0")
+    
+    if not isinstance(losses, int) or isinstance(losses, bool) or losses < 0:
+        return error("The losses must be a whole number not less than 0")
+
+    team['team'] = name.strip()
+    team['wins'] = wins
+    team['losses'] = losses
+
+    return jsonify(team), 200
     
 if __name__ == "__main__":
     app.run(debug=True)
