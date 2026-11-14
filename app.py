@@ -38,9 +38,10 @@ def get_standings():
 
 #Mi parte
 @app.route("/standings/<int:team_id>", methods=['PUT'])
-def update_team(team_id)
+def update_team(team_id):
+    team = find_team(team_id)
     if team is None:
-        return error(f"Team not founderror", 404)
+        return error(f"Team not found", 404)
 
     data = request.get_json(silent = True)
     if data is None:
@@ -48,7 +49,7 @@ def update_team(team_id)
 
     for field in ("team", "wins", "losses"):
         if field not in data:
-            return error(f"Missing field: {data}")
+            return error(f"Missing field: {field}")
 
     name = data['team']
     wins = data['wins']
@@ -57,7 +58,7 @@ def update_team(team_id)
     if not isinstance(name, str) or name.strip() == "":
         return error("The team must not be empty")
     
-    if not isinstance(wins, int) or isinstance(win, bool) or wins < 0 :
+    if not isinstance(wins, int) or isinstance(wins, bool) or wins < 0 :
         return error("The wins must be a whole number not less than 0")
     
     if not isinstance(losses, int) or isinstance(losses, bool) or losses < 0:
