@@ -36,33 +36,34 @@ def get_standings():
     )
     return jsonify(ordered), 200
 
-#Mi parte
 @app.route("/standings/<int:team_id>", methods=['PUT'])
 def update_team(team_id):
     team = find_team(team_id)
+
     if team is None:
-        return error(f"Team not found", 404)
+        return error("Team not found. :<", 404)
 
     data = request.get_json(silent = True)
+
     if data is None:
-        return error("The request body must be JSON")
+        return error("The request body must be JSON. :<", 400)
 
     for field in ("team", "wins", "losses"):
         if field not in data:
-            return error(f"Missing field: {field}")
+            return error(f"Missing field: {field}. :<", 400)
 
-    name = data['team']
-    wins = data['wins']
-    losses = data['losses']
+    name = data.get("team")
+    wins = data.get("wins")
+    losses = data.get("losses")
 
     if not isinstance(name, str) or name.strip() == "":
-        return error("The team must not be empty")
+        return error("The team must not be empty. :<", 400)
     
     if not isinstance(wins, int) or isinstance(wins, bool) or wins < 0 :
-        return error("The wins must be a whole number not less than 0")
+        return error("The wins must be a whole number not less than 0. :<", 400)
     
     if not isinstance(losses, int) or isinstance(losses, bool) or losses < 0:
-        return error("The losses must be a whole number not less than 0")
+        return error("The losses must be a whole number not less than 0. :<", 400)
 
     team['team'] = name.strip()
     team['wins'] = wins
