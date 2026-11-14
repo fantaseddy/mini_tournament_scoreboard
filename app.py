@@ -9,6 +9,19 @@ standings = [
 
 next_team_id = 3
 
+@app.route("/")
+def home():
+    return jsonify({
+        "message": "Welcome to Mini Tournament Scoreboard API!",
+        "available_endpoints": [
+            "/standings (GET)",
+            "/standings/<team_id> (GET)",
+            "/standings (POST)",
+            "/standings/<team_id> (PUT)",
+            "/standings/<team_id> (DELETE)"
+        ]
+    })
+
 def find_team(team_id):
     return next((team for team in standings if team["team_id"] == team_id), None)
 
