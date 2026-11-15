@@ -80,5 +80,36 @@ def get_team(team_id):
 
     return jsonify(team), 200
 
+@app.route("/standings", methods=["POST"])
+def create_team():
+    global next_team_id
+
+    data = request.get_json(silent=True)
+
+if not isinstance(data, dict):
+        return error("A JSON object is required. :<", 400)
+
+    team_name = data.get("team")
+
+    if not isinstance(team_name, str) or not team_name.strip():
+        return error("Team name is required. :<", 400)
+
+    team_name = team_name.strip()
+
+    if any(t["team"].casefold() == team_name.casefold() for t in standings):
+        return error("Team already exists. :<", 409)
+        
+       team = {
+        "team_id": next_team_id,
+        "team": team_name,
+        "wins": 0,
+        "losses": 0
+    }
+
+    standings.append(team)
+    next_team_id += 1
+
+    return jsonify(team), 201
+
 if __name__ == "__main__":
     app.run(debug=True)
