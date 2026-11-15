@@ -99,5 +99,17 @@ if not isinstance(data, dict):
     if any(t["team"].casefold() == team_name.casefold() for t in standings):
         return error("Team already exists. :<", 409)
         
+       team = {
+        "team_id": next_team_id,
+        "team": team_name,
+        "wins": 0,
+        "losses": 0
+    }
+
+    standings.append(team)
+    next_team_id += 1
+
+    return jsonify(team), 201
+
 if __name__ == "__main__":
     app.run(debug=True)
