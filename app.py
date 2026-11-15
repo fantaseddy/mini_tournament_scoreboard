@@ -80,5 +80,11 @@ def get_team(team_id):
 
     return jsonify(team), 200
 
+@app.route("/standings", methods=["POST"])
+def create_team():
+    global next_team_id
+
+    data = request.get_json(silent=True)
+
 if __name__ == "__main__":
     app.run(debug=True)
