@@ -86,5 +86,18 @@ def create_team():
 
     data = request.get_json(silent=True)
 
+if not isinstance(data, dict):
+        return error("A JSON object is required. :<", 400)
+
+    team_name = data.get("team")
+
+    if not isinstance(team_name, str) or not team_name.strip():
+        return error("Team name is required. :<", 400)
+
+    team_name = team_name.strip()
+
+    if any(t["team"].casefold() == team_name.casefold() for t in standings):
+        return error("Team already exists. :<", 409)
+        
 if __name__ == "__main__":
     app.run(debug=True)
